@@ -38,8 +38,11 @@ metadata {
 		capability "Polling"
         capability "Contact Sensor"
 		command "off"
+		command "disarmed"
 		command "home"
+		command "armedhome"
 		command "away"
+		command "armedaway"
 		command "update_state"
 		attribute "events", "string"
 		attribute "messages", "string"
@@ -207,14 +210,29 @@ def off() {
 	ringApiCall ('off')
 }
 
+def disarmed() {
+	log.info "Setting Ring Alarm mode to 'Off'"
+	callApiAndUpdateEvents('off')
+}
+
 def home() { 
 	log.info "Setting Ring Alarm mode to 'Home'"
 	ringApiCall ('home')
 }
 
+def armedhome() { 
+	log.info "Setting Ring Alarm mode to 'Home'"
+	callApiAndUpdateEvents('home')
+}
+
 def away() {
 	log.info "Setting Ring Alarm mode to 'Away'"
 	ringApiCall ('away')
+}
+
+def armedaway() {
+	log.info "Setting Ring Alarm mode to 'Away'"
+	callApiAndUpdateEvents('away')
 }
 
 def update_state() {
